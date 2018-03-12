@@ -42,7 +42,7 @@ describe('Blog Posts', function () {
       expect(res.body).to.be.a('object');
       expect(res.body).to.include.keys('title', 'content', 'author', 'id', 'publishDate');
       expect(res.body.id).to.not.equal(null);
-      expect(res.body).to.deep.equal(Object.assign(newPost, {id: res.body.id}));
+      expect(res.body).to.deep.equal(Object.assign(newPost, {id: res.body.id, publishDate: res.body.publishDate}));
     });
   });
 
