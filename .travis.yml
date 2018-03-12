@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy: agile-peak-61694
+  provider: heroku
+  api_key:
+    secure: mwzYxPqQMRHPFh3RTgRw4YjAKbr2N6rXWAhXQr7DWkyULLBmEGJILTj19MpjFU5Ax+4ooi0F6nxE4MC5cdbvcXgUbyb5xV8tdMHTo2pFoqEjpaVOiV+byZYae43fX4hOQ5z0yvM6466BxD1uiES7vTDLJs2eWXIAXlXWsz/ueuTmq2Rzdm0bIsA93w4RU8fb9AXqGPZXtr+oyFYt9v5EpxhvALhuHQgjTftTDGfw1gK1C16uBSh+r6ClSKS9r92T7I2ffADIK/ahew/fwnZrntyYaGv3BIZ1QnE/t/y/54pwuuHQRTnini5billca65lEvcryLDfiDcVmm7ZKZeRjJK9j/O7dJxkG4dFgrTL7wzm/BiPdjYmhXCADlVkX+92LtqkJoH1Od2RTGree/0dm1xA5+b/RrFWyF3thTzG5b1zadmQ8TwbwLipu13xquJCBv4Zbqwg5M52BCkKsfG0t9m1J3990Vr674nuuLA2vYp1a3zRVLdAFkhoZwlXoNiv/Ybq2QT/LROLwzk2l7QDam5a1k3Vg7d/RgKzpMIBS7mE54NXmcv2aB7E3Z7SI0TlOeXC70jG2gtctU62AUdAZD7M49E1PMW0OgYY8db4TtTBIwHDw+EFgJgpuTOK9XquW8CIfYZtRPUVf7joTaX0MZ/DIblXU26/a1p2VoZdYlI=
+  app: blog-posts-api
+  on:
+    repo: chrisbridges/blog-posts-api
