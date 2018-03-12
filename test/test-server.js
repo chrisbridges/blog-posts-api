@@ -43,6 +43,7 @@ describe('Blog Posts', function () {
       expect(res.body).to.include.keys('title', 'content', 'author', 'id', 'publishDate');
       expect(res.body.id).to.not.equal(null);
       expect(res.body).to.deep.equal(Object.assign(newPost, {id: res.body.id}));
+    });
   });
 
 });
