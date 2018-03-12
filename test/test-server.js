@@ -46,4 +46,19 @@ describe('Blog Posts', function () {
     });
   });
 
+  it('should update items on PUT', function() {
+    const updatePost = {title: 'foo', content: 'foo foo', author: 'Chris'};
+    return chai.request(app)
+      .get('/blog-posts')
+      .then(function(res) {
+        updatePost.id = res.body[0].id;
+        return chai.request(app)
+          .put(`/blog-posts/${updatePost.id}`)
+          .send(updatePost);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+      });
+  });
+
 });
