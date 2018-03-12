@@ -31,6 +31,18 @@ describe('Blog Posts', function () {
     });
   });
 
-  
-  
+  it('should add items on POST', function () {
+    const newPost = {title: 'This is my title', content: 'foo bar foo', author: 'Me'};
+    return chai.request(app)
+    .post('/blog-posts')
+    .send(newPost)
+    .then(function(res) {
+      expect(res).to.have.status(201);
+      expect(res).to.be.json;
+      expect(res.body).to.be.a('object');
+      expect(res.body).to.include.keys('title', 'content', 'author', 'id', 'publishDate');
+      expect(res.body.id).to.not.equal(null);
+      expect(res.body).to.deep.equal(Object.assign(newPost, {id: res.body.id}));
+  });
+
 });
