@@ -63,10 +63,10 @@ describe('Blog Posts', function () {
 
   it('should delete items on DELETE', function() {
     return chai.request(app)
-      .get('/recipes')
+      .get('/blog-posts')
       .then(function(res) {
         return chai.request(app)
-          .delete(`/recipes/${res.body[0].id}`);
+          .delete(`/blog-posts/${res.body[0].id}`);
       })
       .then(function(res) {
         expect(res).to.have.status(204);
