@@ -1,19 +1,24 @@
 const express = require('express');
 const morgan = require('morgan');
-
 const app = express();
-
 const blogPostsRouter = require('./blogPostsRouter');
-
 app.use(morgan('common'));
-
 app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.use('/blog-posts', blogPostsRouter);
+app.get('blog-posts', (req, res) => {
+  Blog-Posts
+  .find()
+  
+});
+
+app.use('*', function (req, res) {
+  res.status(404).json({message: 'Not found'});
+});
 
 
 let server;
