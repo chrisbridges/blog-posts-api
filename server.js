@@ -1,19 +1,27 @@
 const express = require('express');
-const morgan = require('morgan');
-const app = express();
-const blogPostsRouter = require('./blogPostsRouter');
-app.use(morgan('common'));
-app.use(express.static('public'));
 
+const app = express();
+
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('blog-posts', (req, res) => {
-  Blog-Posts
+app.get('/posts', (req, res) => {
+  BlogPost
   .find()
-  
+  .then(restaurants => {
+    res.json({
+      restaurants: restaurants.map(restaurant => restaurant.serialize())
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({message: 'Internal Server Error'});
+  });
+
 });
 
 app.use('*', function (req, res) {
