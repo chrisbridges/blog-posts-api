@@ -2,8 +2,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-
-const blogPostSchema = mongoose.schema({
+const blogPostSchema = mongoose.Schema({
   title: {type: String, required: true},
   content: {type: String, required: true},
   author: {firstName: String, lastName: String},
@@ -26,4 +25,4 @@ blogPostSchema.methods.serialize = function () {
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
-module.exports = {BlogPost};
+module.exports = BlogPost;
