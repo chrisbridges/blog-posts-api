@@ -1,3 +1,4 @@
+'use strict'; //somehow this fixed everything??
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -25,4 +26,4 @@ blogPostSchema.methods.serialize = function () {
 
 const BlogPost = mongoose.model('BlogPost', blogPostSchema);
 
-module.exports = BlogPost;
+module.exports = {BlogPost};

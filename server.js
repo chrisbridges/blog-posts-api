@@ -1,11 +1,13 @@
+'use strict';
+
 const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const {POST, DATABASE_URL} = require('./config');
-const BlogPost = require('./models');
+const {PORT, DATABASE_URL} = require('./config');
+const {BlogPost} = require('./models');
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -25,7 +27,7 @@ app.get('/posts', (req, res) => {
   });
 });
 
-app.get('/posts/:id', (req, res) => { //what if post ID is undefined?
+app.get('/posts/:id', (req, res) => {
   BlogPost
   .findById(req.params.id)
   .then(restaurant => res.json(restaurant.serialize()))
@@ -56,33 +58,40 @@ app.use('*', function (req, res) {
 
 let server;
 
-function runServer() {
-  const port = process.env.PORT || 8080;
+function runServer(databaseURL, port = PORT) {
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve(server);
-    }).on('error', err => {
-      reject(err)
+    mongoose.connect(databaseURL, err => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
     });
   });
 }
 
 function closeServer() {
-  return new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close(err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve();
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
     });
   });
 }
 
 if (require.main === module) {
-  runServer().catch(err => console.error(err));
+  runServer(DATABASE_URL).catch(err => console.error(err));
 };
 
 module.exports = {app, runServer, closeServer};
