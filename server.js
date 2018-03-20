@@ -75,7 +75,7 @@ app.delete('/posts/:id', (req, res) => {
   .catch(err => {
     console.error(err);
     res.json(500).json({message: 'Internal Server Error'});
-  })
+  });
 });
 
 app.put('/posts/:id', (req, res) => {
@@ -85,7 +85,19 @@ app.put('/posts/:id', (req, res) => {
     });
   }
 
-  
+  const updated = {};
+  const updateableFields = ['title', 'content', 'author'];
+  updateableFields.forEach(function(field) {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  BlogPost.findByIdAndUpdate(req.params.id, {$set: updated}, {new: true})
+  .then(updatedPost => res.status(204).end())
+  .catch(err => {
+    res.status(500).json({message: 'Internal Server Error'});
+  });
 });
 
 let server;
